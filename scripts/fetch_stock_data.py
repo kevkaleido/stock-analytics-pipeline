@@ -1,10 +1,18 @@
-#This script downloads historical stock data(2020 till 2025) for 200 tickers (S&P 500, NASDAQ, 
+# This script downloads historical stock data (2020 till 2025) for 200 tickers (S&P 500, NASDAQ, 
 # and Russell 2000), calculates key financial metrics including total shareholder return,
-#  volatility, and Sharpe ratio, then exports the results to a CSV file.
+# volatility, and Sharpe ratio, then exports the results to both a Microsoft SQL Server database
+# and a timestamped CSV file.
 
 import yfinance as yf
 import os
 import pandas as pd
+import os
+import pyodbc
+import pandas
+from sqlalchemy import create_engine
+from datetime import datetime
+
+
 
 tickers = tickers = [
     # S&P 500 (100 tickers)
@@ -86,7 +94,8 @@ for ticker in tickers:
     print(f'Creating Dataframe for {company_name}')
     
 #create a dataframe    
-    new_data=pd.DataFrame({'CompanyName': company_name,
+    new_data=pd.DataFrame({'Ticker': ticker,
+                         'CompanyName': company_name,
                          'TotalStakeholderReturn': tsr,
                          'Annual_TSR': annualized_tsr,
                          'AnnualVolatility': annualized_volatility, 
@@ -105,10 +114,29 @@ for ticker in tickers:
 
 #concatenate all dataframes in the list    
     final_data = pd.concat(data)
-print('Process complete')
 
 
-final_data.to_csv('stocks.csv')
-current_directory =os.getcwd()
-print(f'data saved successfully to {current_directory}')
+#saving to microsoft server
+server = r'KEVIN\SQLEXPRESS'         #creates a variable with my servername   
+database = 'stock_metrics'           #the name of the database I want my dataframe in, assigned to a variable
+
+#create connection string 
+#after importing pyodbc and from sqlalchemy, importing create_engine-- these are language tranlators to write to sql server
+connection_str = f'mssql+pyodbc://{server}/{database}?driver=ODBC+Driver+17+for+Sql+Server&trusted_connection=yes'
+engine = create_engine(connection_str)     
+print('Inserting Data into Sql Server')
+final_data.to_sql('stock_metrics', engine, if_exists= 'replace', index=False) #load to Sql Server
+
+print(f'{len(final_data)} rows of stock data added to MS server')
+
+
+#saving the data as csv with timestamps
+directory = os.getcwd()
+timestamp = datetime.now()
+timestamp = timestamp.strftime('%Y%m%d_%H%M%S')    #format timestamp to string 
+filename = f'stock_metrics{timestamp}.csv'
+final_data.to_csv(filename, index=False)
+print(f'{len(final_data)} rows of stock data saved successfully to {directory}')
+
+
 
