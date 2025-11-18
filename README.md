@@ -24,7 +24,7 @@ This project demonstrates an end-to-end data pipeline for financial analysis, co
 
 ## Project Workflow
 1. **Extract**: Python script downloads historical stock data and calculates financial metrics
-2. **Transform**: Data cleaned and exported to CSV
+2. **Transform**: Data cleaned and exported to Microsoft Server and CSV
 3. **Load & Analyze**: SQL queries for deeper insights and aggregations
 4. **Visualize**: Power BI dashboard for interactive exploration
 
