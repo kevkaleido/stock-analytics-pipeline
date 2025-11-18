@@ -1,7 +1,10 @@
-# This script downloads historical stock data (2020 till 2025) for 200 tickers (S&P 500, NASDAQ, 
-# and Russell 2000), calculates key financial metrics including total shareholder return,
-# volatility, and Sharpe ratio, then exports the results to both a Microsoft SQL Server database
-# and a timestamped CSV file.
+# This script downloads historical stock data (2020-2025) for 200 tickers (S&P 500, NASDAQ, and Russell 2000). 
+# It calculates aggregated, single-period financial metrics, including Total Shareholder Return (TSR), 
+# Annualized TSR (as a period average), Volatility, Sharpe Ratio, and Maximum Drawdown. 
+# The results provide a single, long-term performance summary for each stock over the entire 2020-2025 span, 
+# without year-specific granularity.
+# Results are exported to a Microsoft SQL Server database and a timestamped CSV file.
+
 
 import yfinance as yf
 import os
