@@ -80,7 +80,7 @@ for ticker in tickers:
         annualized_volatility = daily_volatility * (252**0.5)
 
      
-    #get market cap approximation with outstanding shares
+    #get market cap approximation using outstanding shares
         if outstanding_shares:
             market_cap = outstanding_shares * last_close
         else:
@@ -88,7 +88,7 @@ for ticker in tickers:
 
     #Sharpe ratio measures the return earned per unit of risk(volatility)
     #if the sharpe ratio is less than 1.0, the stocks return is low compared to its risk
-        if annualized_volatility != 0:
+        if annualized_volatility.squeeze() !=0:           #adding squeeze gets a scaler value
             sharpe_ratio = annual_tsr/annualized_volatility 
         else:
             sharpe_ratio =None
