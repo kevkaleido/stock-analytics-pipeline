@@ -1,3 +1,4 @@
+# STOCK ANALYSIS PIPELINE
 
 A comprehensive data analytics project that extracts, analyzes, and visualizes performance metrics for stocks across S&P 500, NASDAQ, and Russell 2000 indices using Python, SQL, and Power BI.
 
@@ -22,6 +23,17 @@ This project demonstrates an end-to-end data pipeline for financial analysis, co
   - 50 NASDAQ stocks (tech-focused)
   - 50 Russell 2000 stocks (small-cap)
 
+## Visualizations
+
+### Main Dashboard
+![Main Dashboard](Visualizations/Imgs/01_main_dashboard.png)
+
+
+### Risk Analysis
+![Risk Analysis](Visualizations/Imgs/03_risk_analysis.png)
+
+
+
 ## Project Workflow
 1. **Extract**: Python script downloads historical stock data and calculates financial metrics
 2. **Transform**: Data cleaned and exported to Microsoft Server and CSV
@@ -33,4 +45,3 @@ This project demonstrates an end-to-end data pipeline for financial analysis, co
 - Risk-adjusted performance metrics
 - Sector and industry classification
 - Scalable pipeline design
-```

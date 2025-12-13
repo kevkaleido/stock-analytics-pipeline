@@ -1,4 +1,4 @@
---Predictable High-Performing Stocks
+--1. Predictable High-Performing Stocks
 SELECT
 	Ticker,
 	CompanyName,
@@ -18,7 +18,7 @@ ORDER BY CV_Returns, Avg_TSR desc
 
 
 
---Which stocks gave the best returns each year
+--2. Which stocks gave the best returns each year
 --Top stocks by annualTSR per year
 SELECT 
 	Year,
@@ -35,39 +35,7 @@ WHERE Rank < 6
 
 
 
---Which stocks give high returns with moderate risk?
-SELECT 
-	Ticker,
-	CompanyName,
-	AVG(Annual_TSR) as AvgReturn,
-	AVG(AnnualVolatility) as AvgVolatility,
-	AVG(SharpeRatio) as AvgSharpe,
-	Sector
-FROM stock_metrics_yearly
-GROUP BY Ticker, CompanyName, Sector
-HAVING AVG(SharpeRatio) > 1
-ORDER BY AvgSharpe DESC
-
-
-
---Which stocks are most/least stable?
-SELECT 
-	Ticker,
-	CompanyName,
-	ROUND(AVG(AnnualVolatility), 2) as AvgVolatility,
-	ROUND(AVG(SharpeRatio), 2) as AvgSharpe,
-CASE
-	WHEN AVG(AnnualVolatility) < 0.2 THEN 'Low Risk'
-	WHEN AVG(AnnualVolatility) < 0.4 THEN 'Medium Risk'
-ELSE 'High Risk' END as RiskCategory,
-	Sector
-FROM stock_metrics_yearly
-GROUP BY Ticker,
-CompanyName, Sector
-ORDER BY AvgVolatility 
-
-
---Best risk-adjusted performers
+--3. Best risk-adjusted performers
 SELECT TOP 20
 	Ticker,
 	CompanyName,
@@ -81,7 +49,25 @@ ORDER BY AvgSharpe DESC
 
 
 
----- Stocks with positive returns in most years, at least with four positive years
+--4. Which stocks are most/least stable?
+SELECT 
+	Ticker,
+	CompanyName,
+	ROUND(AVG(AnnualVolatility), 2) as AvgVolatility,
+	ROUND(AVG(SharpeRatio), 2) as AvgSharpe,
+CASE
+	WHEN AVG(AnnualVolatility) < 0.2 THEN 'Low Risk'
+	WHEN AVG(AnnualVolatility) < 0.4 THEN 'Medium Risk'
+ELSE 'High Risk' END as RiskCategory,
+	Sector
+FROM stock_metrics_yearly
+GROUP BY Ticker,CompanyName, Sector
+ORDER BY AvgVolatility 
+
+
+
+
+--5. Stocks with positive returns in most years, at least with four positive years
 SELECT
 	ticker,
 	CompanyName,
@@ -99,8 +85,8 @@ ORDER BY  PercOfPositiveReturns DESC
 
 --Sector Analysis
 
---Which sectors perform best over time?
---Average returns by sector per year
+--6 Which sectors perform best over time?
+-- Average returns by sector per year
 SELECT 
 	Sector,
 	Year,
@@ -111,7 +97,7 @@ GROUP BY Year, Sector
 ORDER BY Year DESC, AvgReturn DESC
 
 
---Sector Risk-Return Profile
+--7. Sector Risk-Return Profile
 SELECT
     Sector,
     AVG(CASE WHEN year >= 2023 THEN Annual_TSR END) as Recent_AvgAnnual_TSR,
@@ -127,8 +113,8 @@ ORDER BY AvgSharpeRatio DESC
 
 
 
--- Is stock beating its sector?
---Sector averages and comparisons
+--8. Is stock beating its sector?
+-- Sector averages and comparisons
 SELECT 
 	Sector,
 	Ticker,
@@ -143,7 +129,7 @@ ORDER BY Year DESC, ReturnVsSector DESC
 
 
 
--- Quality score: this calculates the quality of a stock considering the annual return,
+--9. Quality score: this calculates the quality of a stock considering the annual return,
 --volatility and risk adjusted return(sharperatio)
 WITH MinMax as (
 SELECT 
@@ -191,9 +177,7 @@ ON sm.ticker = s.ticker AND sm.year = s.year)
 -- so I used just AnnualScore(50%) and SharpeScore(50%) since Sharpe already tells me if returns justify the risk. Adding volatility separately becomes redundant.
 --unless I am building a low risk portfolio where I am extra cautious about volatility, then i can use all three
 
-
-
---aggregate quality score by year
+--aggregating quality score by year
 SELECT 
 	Ticker,
 	CompanyName,
@@ -204,6 +188,6 @@ SELECT
 	ROUND(AVG(QualityScore),2) as OverallQualityScore
 FROM QualityScore
 GROUP BY Ticker,CompanyName,Sector,Industry
-HAVING COUNT(*) > 2 --where company has up to 3 years data
+HAVING COUNT(*) > 2 --where stock has up to 3 years data
 ORDER BY RecentQualityScore DESC
 

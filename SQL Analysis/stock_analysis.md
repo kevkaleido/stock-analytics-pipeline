@@ -34,21 +34,16 @@
 
 ---
 
-## Query 3: High Returns with Moderate Risk
+## Query 3: Best Risk-Adjusted Performers
 
-**Purpose:** Find stocks balancing strong returns with manageable risk.
+**Purpose:** Identify top 20 stocks with optimal risk-adjusted returns.
 
-**Filter Criteria:**
+**Ranking Criteria:**
 
-- Average Sharpe Ratio > 1
-- Sorted by highest Sharpe Ratio
+- Ordered by average Sharpe Ratio (descending)
+- Includes return and volatility metrics
 
-**Output Includes:**
-
-- Average return, volatility, and Sharpe ratio
-- Sector classification
-
-**Use Case:** Growth-oriented investors seeking favorable risk/reward profiles without excessive volatility.
+**Use Case:** Finding efficient investments that maximize return per unit of risk taken.
 
 ---
 
@@ -69,22 +64,9 @@
 
 **Use Case:** Portfolio construction based on risk tolerance; identifying stable stocks for conservative allocations.
 
----
 
-## Query 5: Best Risk-Adjusted Performers
 
-**Purpose:** Identify top 20 stocks with optimal risk-adjusted returns.
-
-**Ranking Criteria:**
-
-- Ordered by average Sharpe Ratio (descending)
-- Includes return and volatility metrics
-
-**Use Case:** Finding efficient investments that maximize return per unit of risk taken.
-
----
-
-## Query 6: Consistent Winners
+## Query 5: Consistent Winners
 
 **Purpose:** Find reliable stocks with positive returns in most years (minimum 4 positive years).
 
@@ -102,7 +84,7 @@
 
 ---
 
-## Query 7: Sector Performance Over Time
+## Query 6: Sector Performance Over Time
 
 **Purpose:** Analyze which sectors deliver the best returns annually.
 
@@ -116,7 +98,7 @@
 
 ---
 
-## Query 8: Sector Risk-Return Profile
+## Query 7: Sector Risk-Return Profile
 
 **Purpose:** Comprehensive sector analysis including recent vs historical performance.
 
@@ -132,7 +114,7 @@
 
 ---
 
-## Query 9: Stock vs Sector Comparison
+## Query 8: Stock vs Sector Comparison
 
 **Purpose:** Determine if individual stocks outperform their sector peers.
 
@@ -153,7 +135,7 @@
 
 ---
 
-## Query 10: Quality Score System
+## Query 9: Quality Score System
 
 **Purpose:** Create a composite metric (0-100 scale) that combines returns and risk-adjusted performance.
 
