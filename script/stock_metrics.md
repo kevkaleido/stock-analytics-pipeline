@@ -2,23 +2,19 @@
 
 ## Overview
 
-This Python script analyzes historical stock data for 200 tickers across S&P 500, NASDAQ, and Russell 2000 indices from 2020 to 2025. It calculates year-specific financial performance metrics to enable detailed temporal analysis and year-over-year comparisons.
+This Python script analyzes historical stock data for 200 tickers across S&P 500, NASDAQ, and Russell 2000 indices from 2020 to 2025. It calculates year-specific financial performance metrics to enable temporal analysis and year-over-year comparisons.
 
 ---
 
 ## Purpose and Output
 
-**Purpose**: Provides year-by-year performance metrics for detailed temporal analysis.
+**Purpose**: Provides year-by-year performance metrics for temporal analysis.
 
 **Output**: 6 rows per stock (one for each year: 2020-2025), totaling approximately 1,200 rows.
 
 **Key Advantage**: Enables tracking of performance changes across time and identification of trends in specific years.
 
 ---
-
-## Data Sources
-
-### Tickers (Customizable)
 
 The script is customizable and can analyze any number of stocks. The default configuration includes 200 tickers:
 
@@ -77,13 +73,8 @@ Measures complete investment performance by combining capital appreciation and d
 TSR = (Price Gain + Dividends) / Initial Price
 ```
 
-**Why Include Dividends?**  
+**Why I included Dividends?**  
 Dividends represent cash returned to shareholders. Excluding them would understate true investor returns, especially for dividend-paying stocks like utilities and consumer staples.
-
-**Example**:
-- Stock starts at $100, ends at $110
-- Pays $5 in dividends during the year
-- TSR = ((110 - 100) + 5) / 100 = 15%
 
 ### Volatility Metrics
 
@@ -181,14 +172,12 @@ table_name = 'stock_metrics_yearly'
 ### CSV Files
 
 **Filename Format**: `stock_metrics_yearly_YYYYMMDD_HHMMSS.csv`  
-**Location**: Current working directory  
-**Index**: Not included in export
 
 ---
 
 ## Error Handling
 
-The script includes robust safeguards:
+The script includes safeguards:
 
 - **Empty Data Check**: Skips years with empty or insufficient data
 - **Zero Volatility**: Checks before calculating Sharpe ratio to avoid division by zero
@@ -251,4 +240,4 @@ pip install yfinance pandas sqlalchemy pyodbc
 
 ## Conclusion
 
-This script provides granular, time-dimensioned analysis of stock performance across multiple years. The year-by-year approach enables sophisticated temporal analysis, making it ideal for understanding how individual stocks evolve over time and how they respond to changing market conditions.
+This script provides time-dimensioned analysis of stock performance across multiple years. The year-by-year approach enables temporal analysis, making it ideal for understanding how individual stocks evolve over the years.
